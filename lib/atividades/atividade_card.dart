@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mare/env.dart';
 import 'package:mare/jogo/jogo_copo_3d.dart';
+import 'package:mare/jogo/desenho_areia.dart';
 import 'package:mare/jogo/bolha.dart';
 
 
@@ -132,6 +133,11 @@ void vaiParaCopo(BuildContext context) {
 void vaiParaBolha(BuildContext context) {
   vaiParaJogo(context, (_) => BubbleReleaseGame());
 }
+
+void vaiParaDesenho(BuildContext context) {
+  vaiParaJogo(context, (_) => SandDrawingWidget());
+}
+
 const activities = [
   Activity(
     icon: Icons.directions_walk_rounded,
@@ -149,7 +155,7 @@ const activities = [
         'Faça uma caminhada tranquila, no seu ritmo, '
         'e observe o que existe ao seu redor.',
     suggestion: 'Que tal caminhar por 10 minutos?',
-    onSugestion: vaiParaBolha
+    onSugestion: vaiParaDesenho
   ),
   Activity(
     icon: Icons.menu_book_rounded,
