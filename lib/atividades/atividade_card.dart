@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mare/env.dart';
+import 'package:mare/jogo_copo/jogo_copo_3d.dart';
 
 
 class Activity {
@@ -8,6 +9,7 @@ class Activity {
   final String subtitle;
   final String description;
   final String suggestion;
+  final void Function(BuildContext context ) onSugestion;
 
   const Activity({
     required this.icon,
@@ -15,6 +17,7 @@ class Activity {
     required this.subtitle,
     required this.description,
     required this.suggestion,
+    required this.onSugestion
   });
 }
 
@@ -88,6 +91,8 @@ class ActivityCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       activity.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: MareColors.deep,
                         fontSize: 14,
@@ -111,11 +116,12 @@ class ActivityCard extends StatelessWidget {
   }
 }
 
-void irParaAgua() {
-
-
-
+void fazNada(BuildContext context){
   return;
+}
+
+void vaiParaJogo(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => const BalanceCup3DGame(),));
 }
 
 const activities = [
@@ -125,9 +131,17 @@ const activities = [
     subtitle: 'Movimento e ar livre',
     description:
         'Faça uma caminhada tranquila, no seu ritmo, '
+        'e observe o que existe ao seu redor.'
+        'Faça uma caminhada tranquila, no seu ritmo, '
+        'e observe o que existe ao seu redor.'
+        'Faça uma caminhada tranquila, no seu ritmo, '
+        'e observe o que existe ao seu redor.'
+        'Faça uma caminhada tranquila, no seu ritmo, '
+        'e observe o que existe ao seu redor.'
+        'Faça uma caminhada tranquila, no seu ritmo, '
         'e observe o que existe ao seu redor.',
     suggestion: 'Que tal caminhar por 10 minutos?',
-    // onSugestion: 
+    onSugestion: vaiParaJogo
   ),
   Activity(
     icon: Icons.menu_book_rounded,
@@ -137,6 +151,7 @@ const activities = [
         'Escolha um livro, uma revista ou um texto '
         'que desperte sua curiosidade.',
     suggestion: 'Escolha algo que você goste de ler.',
+    onSugestion: fazNada
   ),
   Activity(
     icon: Icons.chat_bubble_outline_rounded,
@@ -146,6 +161,7 @@ const activities = [
         'Mande uma mensagem para alguém de confiança '
         'ou retome contato com uma pessoa querida.',
     suggestion: 'Uma conversa simples já é um começo.',
+    onSugestion: fazNada
   ),
   Activity(
     icon: Icons.spa_outlined,
@@ -155,6 +171,7 @@ const activities = [
         'Encontre uma posição confortável e reserve '
         'alguns minutos para respirar naturalmente.',
     suggestion: 'Comece com dois minutos de pausa.',
+    onSugestion: fazNada
   ),
   Activity(
     icon: Icons.brush_outlined,
@@ -164,6 +181,7 @@ const activities = [
         'Desenhe, escreva, cuide de uma planta ou '
         'experimente uma atividade manual.',
     suggestion: 'Não precisa ficar perfeito.',
+    onSugestion: fazNada
   ),
   Activity(
     icon: Icons.park_outlined,
@@ -173,5 +191,6 @@ const activities = [
         'Se for possível, passe um tempo em uma praça, '
         'na varanda ou em outro lugar agradável.',
     suggestion: 'Escolha um lugar em que se sinta bem.',
+    onSugestion: fazNada
   ),
 ];

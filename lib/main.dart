@@ -6,7 +6,7 @@ import 'package:mare/perguntas/perguntas.dart';
 
 
 
-void main() => runApp(const MaterialApp(home: MareFeelingScale()));
+void main() => runApp(const MaterialApp(home: MareApp()));
 
 
 class MareApp extends StatelessWidget {
