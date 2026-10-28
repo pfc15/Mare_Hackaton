@@ -33,7 +33,6 @@ class MareApp extends StatelessWidget {
         ),
       ),
       home: const ActivitiesPage(),
-      // home: const MareFeelingScale(),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:mare/env.dart';
 import 'package:mare/jogo/jogo_copo_3d.dart';
 import 'package:mare/jogo/desenho_areia.dart';
 import 'package:mare/jogo/bolha.dart';
+import 'package:mare/onda_trasicao.dart';
 
 
 class Activity {
@@ -122,8 +123,73 @@ void fazNada(BuildContext context){
   return;
 }
 
-void vaiParaJogo(BuildContext context, WidgetBuilder jogo) {
-  Navigator.push(context, MaterialPageRoute(builder: jogo,));
+
+void vaiParaJogo(
+  BuildContext context,
+  WidgetBuilder jogo,
+) {
+  Navigator.of(context).push(
+    PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return jogo(context);
+      },
+      transitionDuration: const Duration(milliseconds: 1200),
+reverseTransitionDuration: const Duration(milliseconds: 900),
+
+      
+
+transitionsBuilder: (
+  context,
+  animation,
+  secondaryAnimation,
+  child,
+) {
+  final ondaAnimation = CurvedAnimation(
+    parent: animation,
+    curve: Curves.easeInOutCubic,
+  );
+
+  return AnimatedBuilder(
+    animation: ondaAnimation,
+    child: child,
+    builder: (context, child) {
+      final progress = ondaAnimation.value;
+
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          // A nova página já está pronta por baixo.
+          child!,
+
+          // A água cobre a tela no início e
+          // desaparece conforme a onda avança.
+          ClipPath(
+            clipper: OndaClipper(
+              animation: AlwaysStoppedAnimation(
+                1.0 - progress,
+              ),
+            ),
+            child: const ColoredBox(
+              color: Color(0xFF3F9FB8),
+            ),
+          ),
+
+          // Revela a página com uma onda que sobe.
+          ClipPath(
+            clipper: OndaClipper(
+              animation: ondaAnimation,
+            ),
+            child: const SizedBox.expand(),
+          ),
+        ],
+      );
+    },
+  );
+},
+
+
+    ),
+  );
 }
 
 void vaiParaCopo(BuildContext context) {
