@@ -1,16 +1,26 @@
 
 import 'package:flutter/material.dart';
+import 'package:mare/atividades/atividades_recentes.dart';
 import 'package:mare/env.dart';
 import 'atividade_card.dart';
 import 'pagina_detalhes.dart';
 
 
 
-class ActivitiesPage extends StatelessWidget {
+class ActivitiesPage extends StatefulWidget {
   const ActivitiesPage({super.key});
 
   @override
+  State<ActivitiesPage> createState() => _ActivitiesPageState();
+}
+
+class _ActivitiesPageState extends State<ActivitiesPage> {
+  List<Activity> atividade_recente = [];
+
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -36,6 +46,7 @@ class ActivitiesPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
           children: [
+
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
@@ -76,6 +87,13 @@ class ActivitiesPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 28),
+            RecentActivitiesCard(activities: atividade_recente),
+            
+
+            // card proximos passos
+            
+            const SizedBox(height: 28),
+            
             const Text(
               'Caminhos para hoje',
               style: TextStyle(
@@ -99,6 +117,22 @@ class ActivitiesPage extends StatelessWidget {
                 child: ActivityCard(
                   activity: activity,
                   onTap: () {
+                    print(atividade_recente);
+                    setState(() {
+                      // Remove a atividade anterior para não duplicar.
+                      atividade_recente.removeWhere(
+                        (item) => item.title == activity.title,
+                      );
+
+                      // Coloca a atividade utilizada no início da lista.
+                      atividade_recente.insert(0, activity);
+
+                      // Mantém apenas as 3 mais recentes.
+                      if (atividade_recente.length > 3) {
+                        atividade_recente.removeLast();
+                      }
+                    });
+                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(

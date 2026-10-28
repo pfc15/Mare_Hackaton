@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mare/jogo/jogo_copo_3d.dart';
-import 'package:mare/atividades/atividades.dart';
+import 'package:mare/atividades/pagina_atividades.dart';
 import 'package:mare/env.dart';
 import 'package:mare/perguntas/perguntas.dart';
 
