@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mare/env.dart';
-import 'package:mare/jogo_copo/jogo_copo_3d.dart';
+import 'package:mare/jogo/jogo_copo_3d.dart';
+import 'package:mare/jogo/bolha.dart';
 
 
 class Activity {
@@ -120,10 +121,17 @@ void fazNada(BuildContext context){
   return;
 }
 
-void vaiParaJogo(BuildContext context) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => const BalanceCup3DGame(),));
+void vaiParaJogo(BuildContext context, WidgetBuilder jogo) {
+  Navigator.push(context, MaterialPageRoute(builder: jogo,));
 }
 
+void vaiParaCopo(BuildContext context) {
+  vaiParaJogo(context, (_) =>  BalanceCup3DGame());
+}
+
+void vaiParaBolha(BuildContext context) {
+  vaiParaJogo(context, (_) => BubbleReleaseGame());
+}
 const activities = [
   Activity(
     icon: Icons.directions_walk_rounded,
@@ -141,7 +149,7 @@ const activities = [
         'Faça uma caminhada tranquila, no seu ritmo, '
         'e observe o que existe ao seu redor.',
     suggestion: 'Que tal caminhar por 10 minutos?',
-    onSugestion: vaiParaJogo
+    onSugestion: vaiParaBolha
   ),
   Activity(
     icon: Icons.menu_book_rounded,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mare/jogo_copo/jogo_copo_3d.dart';
+import 'package:mare/jogo/jogo_copo_3d.dart';
 
 import 'package:flutter/material.dart';
 
